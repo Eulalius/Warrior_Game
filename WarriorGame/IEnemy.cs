@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace WarriorGame
 {
-    public interface IDescription
+    public interface IFightable
     {
-        protected string? Description { get; set; }
-        public string GetDescription(IDescription character);
+       
     }
     
     public interface IEnvironmentColor

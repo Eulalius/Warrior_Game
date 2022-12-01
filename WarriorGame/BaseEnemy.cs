@@ -22,7 +22,7 @@ namespace WarriorGame
             Name = name;
         }
         public abstract void BackgroundColor();
-        public void Attack(Character character, BaseEnemy enemy)
+        public static void Attack(Character character, BaseEnemy enemy)
         {
             int Dmg = enemy.rand.Next(character.MaxBlock + 1, enemy.AtkDmg + 1) - character.rand.Next(2, character.MaxBlock + 1);
             character.HP -= Dmg;
