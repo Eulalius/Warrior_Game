@@ -48,9 +48,9 @@ namespace WarriorGame
     }
 
 
-    public class Dwarf : Character
+    public class Archer : Character
     {
-        public Dwarf(string name) : base(name)
+        public Archer(string name) : base(name)
         {
             AtkDmg = 18;
             HP = 170;

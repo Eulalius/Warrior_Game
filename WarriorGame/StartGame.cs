@@ -35,20 +35,18 @@ namespace WarriorGame
                 Console.WriteLine("\nEveryone has a name.");
                 return ChooseCharacter();
             }
-            Console.WriteLine($"\nWelcome {name} \n\nWhat class do you choose? [1] [2] [3]");
+            Console.WriteLine($"\nWelcome {name} \n\nWhat class do you choose? [1]Human [2]Wizard [3]Archer");
             char c = Convert.ToChar(Console.ReadLine());
             switch (c)
             {
                 case '1': return new Human(name);
                 case '2': return new Wizard(name);
-                case '3': return new Dwarf(name);
+                case '3': return new Archer(name);
                 default:
                     Console.WriteLine("\nInvalid class, choose again");
                     return ChooseCharacter();
             }
         }
-
-
 
         static BaseEnemy GetEnemy()
         {
