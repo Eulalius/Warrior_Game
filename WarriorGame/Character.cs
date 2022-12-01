@@ -6,21 +6,25 @@ using System.Threading.Tasks;
 
 namespace WarriorGame
 {
-    public abstract class Character : IDescription
+    public abstract class Character
     {
-        public int HP { get; set; } = 100;
+        public int HP { get; set; } 
         public string? Name { get; set; } 
         public int AtkDmg { get; set; }
         public int MaxBlock { get; set; }
         public Random rand = new();
-        public string Description { get; set; } = "We have no info about this character";
 
-        public string GetDescription(IDescription character) { return GetDescription(character); }
+
         public Character(string name)
         {
             Name = name;//
         }
-        public abstract void BasicAttack(BaseEnemy enemy, Character character);
+        public void BasicAttack(BaseEnemy enemy, Character character)
+        {
+            int Dmg = rand.Next(enemy.MaxBlock + 1, character.AtkDmg + 1) - rand.Next(2, enemy.MaxBlock + 1);
+            enemy.HP -= Dmg;
+            Console.WriteLine($"\n\nYou hit the {enemy.Name} for {Dmg}, he now has {enemy.HP}hp left");
+        }
         public abstract void SpecialAttack(BaseEnemy enemy, Character character);
     }
     public class Human : Character
@@ -28,17 +32,18 @@ namespace WarriorGame
         
         public Human(string name) : base(name)
         {
-            AtkDmg = 20;
+            AtkDmg = 50;
             HP = 150;
             MaxBlock = 10;
         }
-        public override void BasicAttack(BaseEnemy enemy, Character character)
+        
+        public override void SpecialAttack(BaseEnemy enemy, Character character)
         {
             int Dmg = rand.Next(enemy.MaxBlock + 1, character.AtkDmg + 1) - rand.Next(2, enemy.MaxBlock + 1);
             enemy.HP -= Dmg;
             Console.WriteLine($"You hit the {enemy.Name} for {Dmg}, he now has {enemy.HP}hp left");
         }
-        
+        //
         public override void SpecialAttack(BaseEnemy enemy, Character character)
         {
             int Dmg = rand.Next(enemy.MaxBlock + 1, AtkDmg + 1) - rand.Next(2, enemy.MaxBlock + 1);
@@ -48,29 +53,27 @@ namespace WarriorGame
         }
 
     }
-    public class Dwarf : Character
+
+
+    public class Archer : Character
     {
-        public Dwarf(string name) : base(name)
+        public Archer(string name) : base(name)
         {
             AtkDmg = 18;
             HP = 170;
             MaxBlock = 12;
         }
 
-        public override void BasicAttack(BaseEnemy enemy, Character character)
-        {
-            int Dmg = rand.Next(enemy.MaxBlock + 1, character.AtkDmg + 1) - rand.Next(2, enemy.MaxBlock + 1);
-            enemy.HP -= Dmg;
-            Console.WriteLine($"You hit the enemy for {Dmg}, he now has {enemy.HP}hp left");
-        }
-
         public override void SpecialAttack(BaseEnemy enemy, Character character)
         {
             int Dmg = rand.Next(enemy.MaxBlock + 1, character.AtkDmg + 1) - rand.Next(2, enemy.MaxBlock + 1);
             enemy.HP -= Dmg;
+            if (enemy.HP < 0) enemy.HP = 0;
             Console.WriteLine($"You hit the enemy for {Dmg}, he now has {enemy.HP}hp left");
         }
     }
+
+
     public class Wizard : Character
     {
         public Wizard(string name) : base(name)
@@ -79,16 +82,6 @@ namespace WarriorGame
             HP = 110;
             MaxBlock = 7;
         }
-
-        public override void BasicAttack(BaseEnemy enemy, Character character)
-        {
-            int Dmg = rand.Next(enemy.MaxBlock + 1, character.AtkDmg + 1) - rand.Next(2, enemy.MaxBlock + 1);
-            enemy.HP -= Dmg;
-            Console.WriteLine($"You hit the enemy for {Dmg}, he now has {enemy.HP}hp left");
-        }
-
-        //public override void Defence(IEnemy enemy)
-
 
         public override void SpecialAttack(BaseEnemy enemy, Character character)
         {
