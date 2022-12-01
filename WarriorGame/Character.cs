@@ -18,7 +18,7 @@ namespace WarriorGame
         public string GetDescription(IDescription character) { return GetDescription(character); }
         public Character(string name)
         {
-            Name = name;
+            Name = name;//
         }
         public abstract void BasicAttack(BaseEnemy enemy, Character character);
         public abstract void SpecialAttack(BaseEnemy enemy, Character character);
@@ -38,7 +38,7 @@ namespace WarriorGame
             enemy.HP -= Dmg;
             Console.WriteLine($"You hit the {enemy.Name} for {Dmg}, he now has {enemy.HP}hp left");
         }
-        //
+        
         public override void SpecialAttack(BaseEnemy enemy, Character character)
         {
             int Dmg = rand.Next(enemy.MaxBlock + 1, AtkDmg + 1) - rand.Next(2, enemy.MaxBlock + 1);
